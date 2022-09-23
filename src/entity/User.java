@@ -7,7 +7,7 @@ public class User {
 	String id;
 	String password;
 	String fullname;
-	String telephone;
+	int telephone;
 	String email;
 	String photo;
 	Boolean activated;
@@ -18,7 +18,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String password, String fullname, String telephone, String email, String photo, Boolean activated,
+	public User(String password, String fullname, int telephone, String email, String photo, Boolean activated,
 			int admin) {
 		super();
 		this.password = password;
@@ -30,7 +30,7 @@ public class User {
 		this.admin = admin;
 	}
 
-	public User(String id, String password, String fullname, String telephone, String email, String photo,
+	public User(String id, String password, String fullname, int telephone, String email, String photo,
 			Boolean activated, int admin) {
 		super();
 		this.id = id;
@@ -75,11 +75,11 @@ public class User {
 		this.fullname = fullname;
 	}
 	
-	public String getTelephone() {
+	public int getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(String telephone) {
+	public void setTelephone(int telephone) {
 		this.telephone = telephone;
 	}
 	

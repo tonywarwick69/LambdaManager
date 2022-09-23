@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,7 +27,7 @@ public class User_DAO {
 					String id = rs.getString("Id");
 					String password = rs.getString("Password");
 					String fullname = rs.getString("Fullname");
-					String sdt = rs.getString("Telephone");
+					int sdt = rs.getInt("Telephone");
 					String email= rs.getString("Email");
 					String photo =rs.getString("Photo");
 					Boolean activated = rs.getBoolean("Activated");
@@ -57,5 +58,35 @@ public class User_DAO {
 			e.printStackTrace();
 		}
 		return dstk;
+	}
+	public boolean create(User u) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement stmt = null;
+		String sql = "insert into Users values(?, ?, ?, ?, ?,?,?,?)";
+		int n = 0;
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, u.getId());
+			stmt.setString(2, u.getPassword());
+			stmt.setString(3, u.getFullname());
+			stmt.setInt(4, u.getTelephone());
+			stmt.setString(5, u.getEmail());
+			stmt.setString(6, u.getPhoto());
+			stmt.setBoolean(7, u.getActivated());
+			stmt.setInt(8, u.getAdmin());
+			
+			n = stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return n > 0;
 	}
 }
